@@ -1,6 +1,7 @@
 package net.joshuabrandes.llm
 
 import kotlinx.coroutines.flow.Flow
+import net.joshuabrandes.model.Provocation
 import net.joshuabrandes.model.ToolSession
 
 /*
@@ -19,6 +20,6 @@ import net.joshuabrandes.model.ToolSession
  * limitations under the License.
  */
 interface LLMBackend {
-    suspend fun generateCode(session: ToolSession): Flow<String>
-    suspend fun generateProvocations(session: ToolSession): List<String>
+    fun generateCode(session: ToolSession): Flow<String>
+    suspend fun generateProvocations(session: ToolSession): List<Provocation>
 }

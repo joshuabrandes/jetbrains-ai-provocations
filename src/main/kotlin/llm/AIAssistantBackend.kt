@@ -1,6 +1,7 @@
 package net.joshuabrandes.llm
 
 import kotlinx.coroutines.flow.Flow
+import net.joshuabrandes.model.Provocation
 import net.joshuabrandes.model.ToolSession
 
 /*
@@ -19,11 +20,11 @@ import net.joshuabrandes.model.ToolSession
  * limitations under the License.
  */
 class AIAssistantBackend: LLMBackend {
-    override suspend fun generateCode(session: ToolSession): Flow<String> {
+    override fun generateCode(session: ToolSession): Flow<String> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun generateProvocations(session: ToolSession): List<String> {
+    override suspend fun generateProvocations(session: ToolSession): List<Provocation> {
         TODO("Not yet implemented")
     }
 }

@@ -5,21 +5,24 @@
 
     <!-- Public plugin name should be written in Title Case.
      Guidelines: https://plugins.jetbrains.com/docs/marketplace/best-practices-for-listing.html#plugin-name -->
-    <name>Ai-provocations</name>
+    <name>AI Assistant Provocations</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor url="https://www.yourcompany.com">YourCompany</vendor>
+    <vendor url="https://joshuabrandes.net">Joshua Brandes</vendor>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/best-practices-for-listing.html#plugin-description -->
     <description><![CDATA[
-        Enter short description for your plugin here.<br>
-        <em>most HTML tags may be used</em>
+        Most AI coding tools optimize for speed. Tool for Thought optimizes for understanding.<br>
+Instead of generating code on demand and getting out of the way, it stays present throughout your workflow. When you finish a method, it reads what you wrote and surfaces 1–2 targeted provocations: edge cases you might have missed, structural decisions worth questioning, gaps between what the code does and what it probably should. When you start a new method, it gently asks what you're trying to achieve – not to slow you down, but to make any assistance you get more meaningful. <br>
+Everything happens inline. Provocations appear as unobtrusive inlay hints at the closing brace. Ghost text prompts intent before you write a single line of a method body. A thought log captures everything you dismissed or didn't get to. Nothing interrupts your flow. Nothing is mandatory. <br>
+The goal isn't to make you dependent on another tool. It's the opposite: to keep your critical thinking engaged even as AI takes on more of the mechanical work. <br>
         ]]></description>
 
     <!-- Product and plugin compatibility requirements.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.ml.inline.completion</depends>
 
     <resource-bundle>messages.MyMessageBundle</resource-bundle>
 

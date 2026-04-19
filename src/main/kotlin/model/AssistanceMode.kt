@@ -1,7 +1,4 @@
-package net.joshuabrandes.llm
-
-import kotlinx.coroutines.flow.Flow
-import net.joshuabrandes.model.ToolSession
+package net.joshuabrandes.model
 
 /*
  * Copyright 2026 Joshua Brandes
@@ -18,12 +15,7 @@ import net.joshuabrandes.model.ToolSession
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class AIAssistantBackend: LLMBackend {
-    override suspend fun generateCode(session: ToolSession): Flow<String> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun generateProvocations(session: ToolSession): List<String> {
-        TODO("Not yet implemented")
-    }
+enum class AssistanceMode {
+    AUTOCOMPLETE,
+    GUIDED
 }

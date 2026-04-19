@@ -1,5 +1,8 @@
 package net.joshuabrandes.llm
 
+import kotlinx.coroutines.flow.Flow
+import net.joshuabrandes.model.ToolSession
+
 /*
  * Copyright 2026 Joshua Brandes
  *
@@ -16,4 +19,6 @@ package net.joshuabrandes.llm
  * limitations under the License.
  */
 interface LLMBackend {
+    suspend fun generateCode(session: ToolSession): Flow<String>
+    suspend fun generateProvocations(session: ToolSession): List<String>
 }

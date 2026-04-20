@@ -19,7 +19,7 @@ import net.joshuabrandes.model.ToolSession
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class ClaudeLlmBackend: LLMBackend {
+class LlmBackendImpl: LLMBackend {
     override fun generateCode(session: ToolSession): Flow<String> {
         TODO("Not yet implemented")
     }

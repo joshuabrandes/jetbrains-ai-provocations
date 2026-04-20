@@ -1,7 +1,6 @@
 package net.joshuabrandes.model
 
-import java.util.UUID
-import kotlin.uuid.Uuid
+import java.util.*
 
 /*
  * Copyright 2026 Joshua Brandes

@@ -1,9 +1,5 @@
 package net.joshuabrandes.llm
 
-import kotlinx.coroutines.flow.Flow
-import net.joshuabrandes.model.Provocation
-import net.joshuabrandes.model.ToolSession
-
 /*
  * Copyright 2026 Joshua Brandes
  *
@@ -19,12 +15,10 @@ import net.joshuabrandes.model.ToolSession
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class AIAssistantBackend: LLMBackend {
-    override fun generateCode(session: ToolSession): Flow<String> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun generateProvocations(session: ToolSession): List<Provocation> {
-        TODO("Not yet implemented")
-    }
+enum class LlmProvider {
+    ANTHROPIC,
+    OPENAI,
+    GOOGLE,
+    OLLAMA,
+    OPENAI_COMPATIBLE
 }

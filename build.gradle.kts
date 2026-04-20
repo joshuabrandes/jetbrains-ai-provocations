@@ -19,6 +19,8 @@ repositories {
     }
 }
 
+val koogVersion = "0.8.0"
+
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin.html
 dependencies {
     intellijPlatform {
@@ -29,6 +31,8 @@ dependencies {
         // bundledPlugin("com.intellij.java")
         // bundledPlugin("com.intellij.ml.llm")
     }
+
+    implementation("ai.koog:koog-agents:$koogVersion")
 }
 
 intellijPlatform {

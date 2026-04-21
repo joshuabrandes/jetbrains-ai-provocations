@@ -1,8 +1,7 @@
 package net.joshuabrandes.utils
 
-import ai.koog.agents.utils.ModelInfo
 import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
-import ai.koog.prompt.llm.toModelInfo
+import ai.koog.prompt.llm.LLModel
 import com.intellij.openapi.components.*
 import net.joshuabrandes.llm.LlmProvider
 
@@ -30,7 +29,7 @@ class LlmProvocationSettings : PersistentStateComponent<LlmProvocationSettings.S
 
     data class State(
         var selectedProvider: LlmProvider = LlmProvider.ANTHROPIC,
-        var selectedModel: ModelInfo = AnthropicModels.Sonnet_4_6.toModelInfo()
+        var selectedModel: LLModel = AnthropicModels.Sonnet_4_6
     )
 
     var state = State()
@@ -41,7 +40,7 @@ class LlmProvocationSettings : PersistentStateComponent<LlmProvocationSettings.S
             state.selectedProvider = value
         }
 
-    var selectedModel: ModelInfo
+    var selectedModel: LLModel
         get() = state.selectedModel
         set(value) {
             state.selectedModel = value

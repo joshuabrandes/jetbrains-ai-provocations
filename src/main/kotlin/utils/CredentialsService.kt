@@ -4,6 +4,7 @@ import com.intellij.credentialStore.CredentialAttributes
 import com.intellij.credentialStore.Credentials
 import com.intellij.credentialStore.generateServiceName
 import com.intellij.ide.passwordSafe.PasswordSafe
+import net.joshuabrandes.llm.LlmProvider
 
 /*
  * Copyright 2026 Joshua Brandes
@@ -25,9 +26,9 @@ object CredentialsService {
     const val KEY_ANTHROPIC = "anthropic.api.key"
     const val KEY_OPENAI = "openai.api.key"
     const val KEY_GOOGLE = "google.api.key"
-    const val KEY_OLLAMA_URL = "ollama.url"
+    const val KEY_OLLAMA = "ollama.url"
     const val KEY_COMPATIBLE = "compatible.api.key"
-    const val KEY_COMPATIBLE_URL = "compatible.base.url"
+    // const val KEY_COMPATIBLE_URL = "compatible.base.url"
 
     private const val SUBSYSTEM = "AI Assistant Provocations"
 
@@ -47,9 +48,24 @@ object CredentialsService {
         return PasswordSafe.instance[attributes]
     }
 
+    fun getCredentialsByProvider(provider: LlmProvider): Credentials? {
+        val credentialKey = getCredentialKeyByProvider(provider) ?: return null
+        return getCredentials(credentialKey)
+    }
+
     fun deleteCredentials(credentialKey: String) {
         val attributes = createCredentialAttributes(credentialKey)
         PasswordSafe.instance[attributes] = null
+    }
+
+    fun getCredentialKeyByProvider(provider: LlmProvider): String? {
+        return when (provider) {
+            LlmProvider.ANTHROPIC -> KEY_ANTHROPIC
+            LlmProvider.OPENAI -> KEY_OPENAI
+            LlmProvider.GOOGLE -> KEY_GOOGLE
+            LlmProvider.OLLAMA -> KEY_OLLAMA
+            LlmProvider.OPENAI_COMPATIBLE -> KEY_COMPATIBLE
+        }
     }
 
     private fun createCredentialAttributes(key: String): CredentialAttributes {

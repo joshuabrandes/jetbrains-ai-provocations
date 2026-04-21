@@ -30,6 +30,7 @@ The goal isn't to make you dependent on another tool. It's the opposite: to keep
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow id="MyToolWindow" factoryClass="net.joshuabrandes.MyToolWindowFactory"
                     icon="AllIcons.Toolwindows.ToolWindowPalette"/>
+        <applicationService serviceImplementation="net.joshuabrandes.utils.LlmProvocationSettings"/>
     </extensions>
 
 </idea-plugin>

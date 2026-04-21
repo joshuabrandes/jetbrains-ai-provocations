@@ -1,8 +1,11 @@
 package net.joshuabrandes.llm
 
+import com.intellij.credentialStore.Credentials
 import kotlinx.coroutines.flow.Flow
 import net.joshuabrandes.model.Provocation
 import net.joshuabrandes.model.ToolSession
+import net.joshuabrandes.utils.CredentialsService
+import net.joshuabrandes.utils.LlmProvocationSettings
 
 /*
  * Copyright 2026 Joshua Brandes
@@ -20,6 +23,12 @@ import net.joshuabrandes.model.ToolSession
  * limitations under the License.
  */
 class LlmBackendImpl: LLMBackend {
+
+    private val providerSettings = LlmProvocationSettings.instance.state
+
+    private fun getCredentials() : Credentials =
+        CredentialsService.getCredentialsByProvider(providerSettings.selectedProvider) ?: throw Exception("No credentials found for provider ${providerSettings.selectedProvider}")
+
     override fun generateCode(session: ToolSession): Flow<String> {
         TODO("Not yet implemented")
     }

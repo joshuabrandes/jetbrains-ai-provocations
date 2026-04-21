@@ -31,6 +31,11 @@ The goal isn't to make you dependent on another tool. It's the opposite: to keep
         <toolWindow id="MyToolWindow" factoryClass="net.joshuabrandes.MyToolWindowFactory"
                     icon="AllIcons.Toolwindows.ToolWindowPalette"/>
         <applicationService serviceImplementation="net.joshuabrandes.utils.LlmProvocationSettings"/>
+        <applicationConfigurable
+                parentId="tools"
+                instance="net.joshuabrandes.ui.settings.LlmProvocationSettingsConfigurable"
+                id="net.joshuabrandes.ui.settings.LlmProvocationSettingsConfigurable"
+                displayName="AI Assistant Provocations"/>
     </extensions>
 
 </idea-plugin>

@@ -32,26 +32,26 @@ class LlmProvocationSettings : PersistentStateComponent<LlmProvocationSettings.S
         var selectedModel: LLModel = AnthropicModels.Sonnet_4_6
     )
 
-    var state = State()
+    private var persistedState = State()
 
     var selectedProvider: LlmProvider
-        get() = state.selectedProvider
+        get() = persistedState.selectedProvider
         set(value) {
-            state.selectedProvider = value
+            persistedState.selectedProvider = value
         }
 
     var selectedModel: LLModel
-        get() = state.selectedModel
+        get() = persistedState.selectedModel
         set(value) {
-            state.selectedModel = value
+            persistedState.selectedModel = value
         }
 
     override fun getState(): LlmProvocationSettings.State {
-        return state
+        return persistedState
     }
 
     override fun loadState(p0: LlmProvocationSettings.State) {
-        state = p0
+        persistedState = p0
     }
 
     companion object {

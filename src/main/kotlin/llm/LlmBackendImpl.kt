@@ -24,7 +24,7 @@ import net.joshuabrandes.utils.LlmProvocationSettings
  */
 class LlmBackendImpl: LLMBackend {
 
-    private val providerSettings = LlmProvocationSettings.instance.state
+    private val providerSettings = LlmProvocationSettings.instance
 
     private fun getCredentials() : Credentials =
         CredentialsService.getCredentialsByProvider(providerSettings.selectedProvider) ?: throw Exception("No credentials found for provider ${providerSettings.selectedProvider}")

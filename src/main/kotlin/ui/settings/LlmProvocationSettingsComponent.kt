@@ -41,6 +41,32 @@ class LlmProvocationSettingsComponent {
     // fallback for ollama and openai compatible apis
     private val modelTextField = JBTextField()
 
+    var selectedProvider: LlmProvider
+        get() = providerComboBox.selectedItem as? LlmProvider ?: LlmProvocationSettings.instance.selectedProvider
+        set(value) {
+            providerComboBox.selectedItem = value
+            updateModelOptions(value)
+        }
+
+    var selectedModel: LLModel
+        get() = modelComboBox.selectedItem as? LLModel ?: LLModel(LLMProvider.OpenAI, modelTextField.text)
+        set(value) {
+            modelComboBox.selectedItem = value
+            modelTextField.text = value.id
+        }
+
+    var modelName: String
+        get() = modelTextField.text
+        set(value) {
+            modelTextField.text = value
+        }
+
+    var apiKey: String
+        get() = String(apiKeyField.password)
+        set(value) {
+            apiKeyField.text = value
+        }
+
     init {
         updateModelOptions()
 

@@ -34,7 +34,8 @@ class LlmProvocationSettingsConfigurable : Configurable {
     override fun isModified(): Boolean {
         val settings = LlmProvocationSettings.instance
         val component = settingsComponent ?: return false
-        val storedKey = CredentialsService.getCredentialKeyByProvider(settings.selectedProvider)
+        val storedKey = CredentialsService.getCredentialsByProvider(settings.selectedProvider)
+            ?.getPasswordAsString() ?: ""
 
         return component.selectedProvider != settings.selectedProvider
                 || component.selectedModel != settings.selectedModel

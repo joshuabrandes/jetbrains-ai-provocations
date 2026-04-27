@@ -5,3 +5,6 @@ build
 
 ### macOS ###
 .DS_Store
+
+### other ###
+.claude

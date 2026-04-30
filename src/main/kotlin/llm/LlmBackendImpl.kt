@@ -87,7 +87,31 @@ class LlmBackendImpl : LLMBackend {
         }
     }
 
+    @OptIn(ExperimentalTime::class)
     override suspend fun generateProvocations(session: ToolSession): List<Provocation> {
-        TODO("Not yet implemented")
+        val provider = providerSettings.selectedProvider
+        val model = providerSettings.selectedModel
+        val credentials = getCredentials()
+        val providerCredentials = buildProviderCredentials(provider, credentials)
+        val executor = clientFactory.createExecutor(provider, providerCredentials)
+        val prompt = prompt(BASE_PROMPT) {
+            user(Prompt.provocation(session))
+        }
+
+        return flow {
+            val deltaIndexes = mutableSetOf<Int?>()
+            executor.executeStreaming(prompt, model).collect { chunk ->
+                when (chunk) {
+                    is StreamFrame.TextDelta -> {
+                        deltaIndexes += chunk.index
+                        emit(Provocation(chunk.text))
+                    }
+                    is StreamFrame.TextComplete -> {
+                        emit(Provocation(chunk.text))
+                    }
+                    else -> Unit
+                }
+            }
+        }.
     }
 }

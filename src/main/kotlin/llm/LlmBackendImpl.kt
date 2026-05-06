@@ -5,11 +5,13 @@ import ai.koog.prompt.streaming.StreamFrame
 import com.intellij.credentialStore.Credentials
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonPrimitive
 import net.joshuabrandes.model.Provocation
 import net.joshuabrandes.model.ToolSession
 import net.joshuabrandes.utils.CredentialsService
 import net.joshuabrandes.utils.LlmProvocationSettings
-import org.eclipse.aether.util.concurrency.ExecutorUtils.executor
 import kotlin.time.ExperimentalTime
 
 /*
@@ -98,20 +100,19 @@ class LlmBackendImpl : LLMBackend {
             user(Prompt.provocation(session))
         }
 
-        return flow {
-            val deltaIndexes = mutableSetOf<Int?>()
-            executor.executeStreaming(prompt, model).collect { chunk ->
-                when (chunk) {
-                    is StreamFrame.TextDelta -> {
-                        deltaIndexes += chunk.index
-                        emit(Provocation(chunk.text))
-                    }
-                    is StreamFrame.TextComplete -> {
-                        emit(Provocation(chunk.text))
-                    }
-                    else -> Unit
-                }
-            }
-        }.
+        val response = executor.execute(prompt, model)
+
+        val jsonText = response.last().content
+            .trim()
+            .removePrefix("```json")
+            .removePrefix("```")
+            .removeSuffix("```")
+            .trim()
+
+        val strings = Json.parseToJsonElement(jsonText)
+            .jsonArray
+            .map { it.jsonPrimitive.content }
+
+        return Provocation.fromStrings(strings)
     }
 }

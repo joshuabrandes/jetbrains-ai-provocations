@@ -31,9 +31,11 @@ import kotlin.time.ExperimentalTime
  */
 class LlmBackendImpl : LLMBackend {
 
-    @OptIn(ExperimentalTime::class)
-    private val BASE_PROMPT = prompt("base-prompt") {
-        system("You are a helpful coding assistant.")
+    companion object {
+        @OptIn(ExperimentalTime::class)
+        private val BASE_PROMPT = prompt("base-prompt") {
+            system("You are a helpful coding assistant.")
+        }
     }
 
     private val providerSettings = LlmProvocationSettings.instance
@@ -47,7 +49,7 @@ class LlmBackendImpl : LLMBackend {
         val apiKey = credentials.password?.toString()
         val url = credentials.userName
 
-        return when(provider) {
+        return when (provider) {
             LlmProvider.ANTHROPIC -> LlmProviderCredentials(anthropicKey = apiKey)
             LlmProvider.OPENAI -> LlmProviderCredentials(openaiKey = apiKey)
             LlmProvider.GOOGLE -> LlmProviderCredentials(googleApiKey = apiKey)
@@ -78,11 +80,13 @@ class LlmBackendImpl : LLMBackend {
                         deltaIndexes += chunk.index
                         emit(chunk.text)
                     }
+
                     is StreamFrame.TextComplete -> {
                         if (chunk.index !in deltaIndexes) {
                             emit(chunk.text)
                         }
                     }
+
                     else -> Unit
                 }
             }
